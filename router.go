@@ -17,6 +17,9 @@ func startRouter() {
 		w.Write([]byte(miLectures))
 		mtx.RUnlock()
 	})
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Please use /ai or /mi"))
+	})
 
 
 	log.Fatal(http.ListenAndServe("127.0.0.1:10944", mux))
