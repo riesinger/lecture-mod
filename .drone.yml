@@ -32,3 +32,6 @@ pipeline:
     when:
       branch: master
       event: push
+  telegram-notify:
+    image: appleboy/drone-telegram
+    secrets: [ telegram_token, telegram_to ]

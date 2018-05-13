@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2b4aadc-3e40-44af-8df9-71e6a36c40c4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.drone.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.drone.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,20 +35,11 @@
       <file leaf-file-name="router.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/router.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
+            <state relative-caret-position="440">
+              <caret line="20" column="97" selection-start-line="20" selection-start-column="97" selection-end-line="20" selection-end-column="97" />
               <folding>
                 <element signature="e#14#43#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".drone.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.drone.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -70,9 +62,9 @@
       <list>
         <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/Dockefile" />
-        <option value="$PROJECT_DIR$/.drone.yml" />
         <option value="$PROJECT_DIR$/Dockerfile" />
         <option value="$PROJECT_DIR$/router.go" />
+        <option value="$PROJECT_DIR$/.drone.yml" />
       </list>
     </option>
   </component>
@@ -186,6 +178,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="30" width="1920" height="2130" extended-state="4" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2046875" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -282,15 +275,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.drone.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="57" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
+        <state relative-caret-position="792">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/router.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
+        <state relative-caret-position="440">
+          <caret line="20" column="97" selection-start-line="20" selection-start-column="97" selection-end-line="20" selection-end-column="97" />
           <folding>
             <element signature="e#14#43#0" expanded="true" />
           </folding>
