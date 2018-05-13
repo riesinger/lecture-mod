@@ -22,6 +22,6 @@ func startRouter() {
 	})
 
 
-	log.Fatal(http.ListenAndServe("127.0.0.1:10944", mux))
+	log.Fatal(http.ListenAndServe("0.0.0.0:10944", mux))
 
 }
