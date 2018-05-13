@@ -7,18 +7,18 @@ import (
 
 func startRouter() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/ai", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/rapla/ai", func(w http.ResponseWriter, r *http.Request) {
 		mtx.RLock()
 		w.Write([]byte(aiLectures))
 		mtx.RUnlock()
 	})
-	mux.HandleFunc("/mi", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/rapla/mi", func(w http.ResponseWriter, r *http.Request) {
 		mtx.RLock()
 		w.Write([]byte(miLectures))
 		mtx.RUnlock()
 	})
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Please use /ai or /mi"))
+	mux.HandleFunc("/rapla", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("See <a href='/rapla/ai'>AI calendar</a> or <a href='/rapla/mi'>MI calendar</a>"))
 	})
 
 
