@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>iCal generator</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"
+	      integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous"/>
+	<meta name="author" content="Pascal Riesinger">
+</head>
+<body>
+<nav class="navbar is-warning" role="navigation" aria-label="main navigation bar">
+	<div class="navbar-brand">
+		<span class="navbar-item">
+			<img src="logo.png" alt="iCal generator logo">
+		</span>
+		<span class="navbar-item">
+			<h1 class="title is-4">
+			iCal generator
+			</h1>
+		</span>
+	</div>
+</nav>
+<section class="section">
+	<div class="container">
+		<h1 class="title">
+			RAPLA iCal generator
+		</h1>
+		<p class="subtitle">
+			Generate an iCal file containing only the lessons you need
+		</p>
+
+		<p>Just tick the lessons you visit, then embed the calendar into your calendar viewer of choice (like Google
+			Calendar
+			or Outlook). Common lessons such as maths are included by default
+		</p>
+		<form>
+
+			<div class="field">
+				<div class="control">
+					<label class="checkbox">
+						<input type="checkbox">
+						Medizinische Physik
+					</label>
+				</div>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox">
+					Medizinisches Grundwissen
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox">
+					Web-Engineering
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox">
+					Marketing
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox">
+					CCNA
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox">
+					Intercultural Comm Gruppe 1
+				</label>
+			</div>
+			<div class="field">
+				<label class="checkbox">
+					<input type="checkbox">
+					Intercultural Comm Gruppe 2
+				</label>
+			</div>
+
+		</form>
+	</div>
+</section>
+<section class="hero is-warning">
+	<div class="hero-body">
+		<div class="container">
+			<h1 class="title">Copy the following URL into your calendar of choice:</h1>
+			<input type="text" class="input is-large" value="https://tools.pascal-riesinger.de/rapla/"
+			       contenteditable="false"
+			       readonly>
+		</div>
+	</div>
+</section>
+<section class="section">
+	<div class="container">
+		<h4 class="title is-6">
+			For instructions on including the URL into your favorite calendar, please see:
+		</h4>
+		<ul>
+			<li><a href="https://support.google.com/calendar/answer/37100?co=GENIE.Platform%3DDesktop&hl=en">Google
+				Calendar</a> (See the "Add using a link" section)
+			</li>
+			<li><a href="https://www.calendarwiz.com/knowledgebase/entry/71/">Outlook</a></li>
+		</ul>
+	</div>
+</section>
+</body>
+</html>
