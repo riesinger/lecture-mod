@@ -4,6 +4,7 @@ pipeline:
     environment:
       - CGO_ENABLED=0
       - GOOS=linux
+      - GOPATH=/drone/
     commands:
       - apk add --update git
       - go get -v 
