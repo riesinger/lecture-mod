@@ -1,12 +1,14 @@
 # We are using alpine for CA Certificates
 FROM alpine:latest
 
-COPY lecture-mod /usr/bin
-COPY client .
+RUN mkdir /app
 
-RUN ls -la /usr/bin
+COPY lecture-mod /app
+COPY client /app/client
 
 RUN apk update && apk add ca-certificates
 
-EXPOSE 9988
-CMD ["lecture-mod"]
+WORKDIR /app
+
+EXPOSE 10944
+ENTRYPOINT /app/lecture-mod
