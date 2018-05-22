@@ -5,6 +5,7 @@ pipeline:
       - CGO_ENABLED=0
       - GOOS=linux
     commands:
+      - go get -v 
       - go vet -v
       - go build -v -a -installsuffix cgo -o lecture-mod .
   publish-docker:
