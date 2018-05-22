@@ -9,13 +9,21 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"
 	      integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous"/>
 	<meta name="author" content="Pascal Riesinger">
+	<style>
+		label.checkbox:first-child {
+			margin-top: 10px;
+		}
+		label.checkbox input {
+			margin-right: 10px;
+		}
+	</style>
 </head>
 <body>
 <nav class="navbar is-warning" role="navigation" aria-label="main navigation bar">
 	<div class="navbar-brand">
-		<span class="navbar-item">
+		<!--<span class="navbar-item">
 			<img src="logo.png" alt="iCal generator logo">
-		</span>
+		</span>-->
 		<span class="navbar-item">
 			<h1 class="title is-4">
 			iCal generator
@@ -37,49 +45,43 @@
 			or Outlook). Common lessons such as maths are included by default
 		</p>
 		<form>
-
 			<div class="field">
 				<div class="control">
 					<label class="checkbox">
-						<input type="checkbox">
-						Medizinische Physik
+						<input type="checkbox">Anwendungsprojekt
+					</label>
+				</div>
+			</div>
+			<div class="field">
+				<div class="control">
+					<label class="checkbox">
+						<input type="checkbox">Medizin
 					</label>
 				</div>
 			</div>
 			<div class="field">
 				<label class="checkbox">
-					<input type="checkbox">
-					Medizinisches Grundwissen
+					<input type="checkbox">Web-Engineering
 				</label>
 			</div>
 			<div class="field">
 				<label class="checkbox">
-					<input type="checkbox">
-					Web-Engineering
+					<input type="checkbox">Marketing
 				</label>
 			</div>
 			<div class="field">
 				<label class="checkbox">
-					<input type="checkbox">
-					Marketing
+					<input type="checkbox">CCNA
 				</label>
 			</div>
 			<div class="field">
 				<label class="checkbox">
-					<input type="checkbox">
-					CCNA
+					<input type="checkbox">Intercultural Comm Gruppe 1
 				</label>
 			</div>
 			<div class="field">
 				<label class="checkbox">
-					<input type="checkbox">
-					Intercultural Comm Gruppe 1
-				</label>
-			</div>
-			<div class="field">
-				<label class="checkbox">
-					<input type="checkbox">
-					Intercultural Comm Gruppe 2
+					<input type="checkbox">Intercultural Comm Gruppe 2
 				</label>
 			</div>
 
@@ -90,7 +92,7 @@
 	<div class="hero-body">
 		<div class="container">
 			<h1 class="title">Copy the following URL into your calendar of choice:</h1>
-			<input type="text" class="input is-large" value="https://tools.pascal-riesinger.de/rapla/"
+			<input type="text" class="input is-large output" value="https://tools.pascal-riesinger.de/rapla/get"
 			       contenteditable="false"
 			       readonly>
 		</div>
@@ -109,5 +111,31 @@
 		</ul>
 	</div>
 </section>
+<script>
+	const fields = document.querySelectorAll(".field");
+	const output = document.querySelector(".output");
+
+	const base = "https://tools.pascal-riesinger.de/rapla/get"
+
+	const updateOutput = () => {
+		console.log("Updating output");
+		let tags = [];
+		fields.forEach((e) => {
+			const i = e.querySelector("input");
+			if (i && !i.checked) {
+				console.log(i, "checked");
+				tags.push(encodeURIComponent(e.querySelector(".checkbox").innerText.toLowerCase()));
+			} 
+		});
+
+		output.value = `${base}/${tags.join("+")}`;
+	}
+
+	fields.forEach((e) => {
+		const i = e.querySelector("input");
+		console.log(i);
+		i.addEventListener("change", updateOutput);
+	})
+</script>
 </body>
 </html>
