@@ -2,6 +2,7 @@
 FROM alpine:latest
 
 COPY lecture-mod /usr/bin
+COPY client /usr/bin
 
 RUN apk update && apk add ca-certificates
 
