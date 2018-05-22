@@ -5,14 +5,14 @@ import (
 	"bytes"
 	"log"
 	"net/http"
+	"net/url"
 	"strings"
 	"sync"
 	"time"
 )
 
 var (
-	aiLectures string
-	miLectures string
+	currentCalendar string
 
 	mtx sync.RWMutex
 )
@@ -51,72 +51,21 @@ func refresh() {
 	}
 
 	defer resp.Body.Close()
-
-	aiBuilder := strings.Builder{}
-	miBuilder := strings.Builder{}
-	buf := strings.Builder{}
-
-	buffering := false
-
-	scanner := bufio.NewScanner(resp.Body)
-	scanner.Split(ScanCRLF)
-
-	numLines := 0
-
-	for scanner.Scan() {
-		numLines++
-		l := scanner.Text()
-		if buffering {
-			buf.WriteString(l)
-			buf.WriteString("\r\n")
-			// Check if the current line terminates a VEVENT
-			if strings.Contains(l, "END:VEVENT") {
-				// If the currently buffered VEVENT contains Medical Computer science, write it to the miBuffer, otherwise to both
-				if strings.Contains(strings.ToLower(buf.String()), "medizin") {
-					miBuilder.WriteString(buf.String())
-				} else if strings.Contains(strings.ToLower(buf.String()), "nur ai") {
-					aiBuilder.WriteString(buf.String())
-				} else {
-					miBuilder.WriteString(buf.String())
-					aiBuilder.WriteString(buf.String())
-				}
-
-				// Clear the buffer
-				buf.Reset()
-				buffering = false
-			}
-		} else {
-			// We currently are either in the metadata or something went very wrong!
-			if strings.Contains(l, "BEGIN:VEVENT") {
-				// Start buffering each event
-				buffering = true
-				buf.WriteString(l)
-				buf.WriteString("\r\n")
-			} else {
-				// This should be metadata
-				aiBuilder.WriteString(l)
-				aiBuilder.WriteString("\r\n")
-				miBuilder.WriteString(l)
-				miBuilder.WriteString("\r\n")
-			}
-		}
-	}
-
+	buff := new(bytes.Buffer)
+	buff.ReadFrom(resp.Body)
 	mtx.Lock()
-	aiLectures = aiBuilder.String()
-	miLectures = miBuilder.String()
+	currentCalendar = buff.String()
 	mtx.Unlock()
 
-	log.Printf("Read %d lines", numLines)
-
+	log.Println("Calendar was refreshed")
 }
 
 // dropCR drops a terminal \r from the data.
 func dropCR(data []byte) []byte {
-    if len(data) > 0 && data[len(data)-1] == '\r' {
-        return data[0 : len(data)-1]
-    }
-    return data
+	if len(data) > 0 && data[len(data)-1] == '\r' {
+		return data[0 : len(data)-1]
+	}
+	return data
 }
 
 func ScanCRLF(data []byte, atEOF bool) (advance int, token []byte, err error) {
@@ -133,4 +82,74 @@ func ScanCRLF(data []byte, atEOF bool) (advance int, token []byte, err error) {
 	}
 	// Request more data.
 	return 0, nil, nil
+}
+
+func generateCalendar(params map[string]string) ([]byte, error) {
+
+	tagsString, ok := params["tags"]
+	if !ok {
+		log.Println("Got no tags, returning whole calendar")
+		mtx.Lock()
+		defer mtx.Unlock()
+		return []byte(currentCalendar), nil
+	}
+
+	tags := strings.Split(tagsString, "+")
+
+	builder := strings.Builder{}
+	buf := strings.Builder{}
+
+	buffering := false
+
+	mtx.RLock()
+	defer mtx.RUnlock()
+	scanner := bufio.NewScanner(bytes.NewBufferString(currentCalendar))
+	scanner.Split(ScanCRLF)
+
+	numLines := 0
+
+	for scanner.Scan() {
+		numLines++
+		l := scanner.Text()
+		if buffering {
+			buf.WriteString(l)
+			buf.WriteString("\r\n")
+			// Check if the current line terminates a VEVENT
+			if strings.Contains(l, "END:VEVENT") {
+				// If the currently buffered VEVENT contains any of the tags, dump it
+				for _, v := range tags {
+					p, err := url.PathUnescape(v)
+					if err != nil {
+						return nil, err
+					}
+					if strings.Contains(strings.ToLower(buf.String()), p) {
+						buf.Reset()
+						break
+					}
+				}
+
+				if buf.String() != "" {
+					builder.WriteString(buf.String())
+				}
+
+				buf.Reset()
+				buffering = false
+			}
+		} else {
+			// We currently are either in the metadata or something went very wrong!
+			if strings.Contains(l, "BEGIN:VEVENT") {
+				// Start buffering each event
+				buffering = true
+				buf.WriteString(l)
+				buf.WriteString("\r\n")
+			} else {
+				// This should be metadata
+				builder.WriteString(l)
+				builder.WriteString("\r\n")
+			}
+		}
+	}
+
+	return []byte(builder.String()), nil
+
 }
