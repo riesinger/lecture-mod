@@ -22,19 +22,4 @@ pipeline:
     when:
       branch: master
       event: push
-  rancher-deploy:
-    image: peloton/drone-rancher
-    url: http://pascal-riesinger.de:8089
-    secrets: [ rancher_access_key, rancher_secret_key ]
-    service: tools/lecture-mod
-    docker_image: registry.pascal-riesinger.de/lecture-mod:latest
-    start_first: false
-    interval_millis: 5000
-    confirm: true
-    timeout: 180
-    when:
-      branch: master
-      event: push
-  telegram-notify:
-    image: appleboy/drone-telegram
-    secrets: [ telegram_token, telegram_to ]
+  
