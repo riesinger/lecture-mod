@@ -86,14 +86,14 @@
 	const fields = [].slice.call(document.querySelectorAll(".field"));
 	const output = document.querySelector(".output");
 
-	const base = "https://tools.pascal-riesinger.de/rapla/get"
+	const base = "https://tools.pascal-riesinger.de/rapla/get/"
 
 	const updateOutput = () => {
 		console.log("Updating output");
 		let tags = fields.filter((field) => field.querySelector("input").checked).map((field) =>
 			encodeURIComponent(field.querySelector("input").name.toLowerCase())).join("+");
 
-		output.value = `${base}/${tags}`;
+		output.value = `${base}${tags}`;
 	}
 
 	fields.forEach((e) => {
