@@ -91,7 +91,7 @@
 
 	const updateOutput = () => {
 		console.log("Updating output");
-		let tags = fields.filter((field) => field.querySelector("input").checked).map((field) =>
+		let tags = fields.filter((field) => !field.querySelector("input").checked).map((field) =>
 			encodeURIComponent(field.querySelector("input").name.toLowerCase())).join("+");
 
 		output.value = `${base}${tags}`;
