@@ -2,133 +2,98 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport"
-	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
 	<title>iCal generator</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"
-	      integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous"/>
+	<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css"
+	 integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous"/>-->
 	<meta name="author" content="Pascal Riesinger">
-	<style>
-		label.checkbox:first-child {
-			margin-top: 10px;
-		}
-		label.checkbox input {
-			margin-right: 10px;
-		}
-	</style>
+	<link href="/css/app.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar is-warning" role="navigation" aria-label="main navigation bar">
-	<div class="navbar-brand">
-		<!--<span class="navbar-item">
-			<img src="logo.png" alt="iCal generator logo">
-		</span>-->
-		<span class="navbar-item">
-			<h1 class="title is-4">
-			iCal generator
-			</h1>
-		</span>
-	</div>
-</nav>
-<section class="section">
-	<div class="container">
-		<h1 class="title">
-			RAPLA iCal generator
-		</h1>
-		<p class="subtitle">
-			Generate an iCal file containing only the lessons you need
-		</p>
-
-		<p>Just tick the lessons you visit, then embed the calendar into your calendar viewer of choice (like Google
-			Calendar
-			or Outlook). Common lessons such as maths are included by default
-		</p>
-		<form>
-			<div class="field">
-				<div class="control">
-					<label class="checkbox">
-						<input type="checkbox">Anwendungsprojekt
-					</label>
-				</div>
-			</div>
-			<div class="field">
-				<div class="control">
-					<label class="checkbox">
-						<input type="checkbox">Medizin
-					</label>
-				</div>
-			</div>
-			<div class="field">
-				<label class="checkbox">
-					<input type="checkbox">Web-Engineering
-				</label>
-			</div>
-			<div class="field">
-				<label class="checkbox">
-					<input type="checkbox">Marketing
-				</label>
-			</div>
-			<div class="field">
-				<label class="checkbox">
-					<input type="checkbox">CCNA
-				</label>
-			</div>
-			<div class="field">
-				<label class="checkbox">
-					<input type="checkbox">Intercultural Comm Gruppe 1
-				</label>
-			</div>
-			<div class="field">
-				<label class="checkbox">
-					<input type="checkbox">Intercultural Comm Gruppe 2
-				</label>
-			</div>
-
-		</form>
-	</div>
-</section>
-<section class="hero is-warning">
-	<div class="hero-body">
-		<div class="container">
-			<h1 class="title">Copy the following URL into your calendar of choice:</h1>
-			<input type="text" class="input is-large output" value="https://tools.pascal-riesinger.de/rapla/get"
-			       contenteditable="false"
-			       readonly>
+	<header>
+		<img src="/img/logo.png" alt="iCal generator logo">
+		<div>
+			<h1>iCAL generator</h1>
+			<h3 class="subtitle">Generate calendars for the lessons <strong>you</strong> need</h3>
 		</div>
-	</div>
-</section>
-<section class="section">
-	<div class="container">
-		<h4 class="title is-6">
+	</header>
+	<main>
+		<section>
+			<h2>How to</h2>
+			<p>Just tick the lessons you visit, then embed the calendar into your calendar viewer of choice (like Google
+				Calendar
+				or Outlook). Common lessons such as maths are included by default.
+			</p>
+			<p>
 			For instructions on including the URL into your favorite calendar, please see:
-		</h4>
+			</p>
 		<ul>
 			<li><a href="https://support.google.com/calendar/answer/37100?co=GENIE.Platform%3DDesktop&hl=en">Google
 				Calendar</a> (See the "Add using a link" section)
 			</li>
 			<li><a href="https://www.calendarwiz.com/knowledgebase/entry/71/">Outlook</a></li>
 		</ul>
-	</div>
-</section>
+		</section>
+		<section class="white">
+			<form>
+				<div class="field">
+					<div class="control">
+						<input type="checkbox" id="cb1" name="ada"/>
+						<label class="checkbox" for="cb1">Ausbildung der Ausbilder (Ada)</label>
+					</div>
+				</div>
+				<div class="field">
+					<div class="control">
+						<input type="checkbox" id="cb2" name="medizin">
+						<label class="checkbox" for="cb2">Medizininformatik (alles mit Medizin)</label>
+					</div>
+				</div>
+				<div class="field">
+					<div class="control">
+						<input type="checkbox" id="cb3" name="systemnahe">
+						<label class="checkbox" for="cb3">Systemnahe Programmierung</label>
+					</div>
+				</div>
+				<div class="field">
+					<div class="control">
+						<input type="checkbox" id="cb4" name="signale">
+						<label class="checkbox" for="cb4">Systeme und Signale</label>
+					</div>
+				</div>
+				<div class="field">
+					<div class="control">
+						<input type="checkbox" id="cb5" name="analyse">
+						<label class="checkbox" for="cb5">Analyse von Geschäftsprozessdaten</label>
+					</div>
+				</div>
+				<div class="field">
+					<div class="control">
+						<input type="checkbox" id="cb6" name="ccna">
+						<label class="checkbox" for="cb6">CCNA</label>
+					</div>
+				</div>
+			</form>
+			<h2 class="title">Copy the following URL into your calendar of choice:</h2>
+			<input type="text" class="input is-large output" value="https://tools.pascal-riesinger.de/rapla/get"
+			       contenteditable="false"
+			       readonly>
+
+		</section>
+	</main>
 <script>
-	const fields = document.querySelectorAll(".field");
+	const fields = [].slice.call(document.querySelectorAll(".field"));
 	const output = document.querySelector(".output");
 
 	const base = "https://tools.pascal-riesinger.de/rapla/get"
 
 	const updateOutput = () => {
 		console.log("Updating output");
-		let tags = [];
-		fields.forEach((e) => {
-			const i = e.querySelector("input");
-			if (i && !i.checked) {
-				console.log(i, "checked");
-				tags.push(encodeURIComponent(e.querySelector(".checkbox").innerText.toLowerCase()));
-			} 
-		});
+		let tags = fields.filter((field) => field.querySelector("input").checked).map((field) =>
+			encodeURIComponent(field.querySelector("input").name.toLowerCase())).join("+");
 
-		output.value = `${base}/${tags.join("+")}`;
+		output.value = `${base}/${tags}`;
 	}
 
 	fields.forEach((e) => {

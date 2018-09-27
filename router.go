@@ -9,7 +9,7 @@ import (
 
 func startRouter() {
 	m := mux.NewRouter()
-	m.HandleFunc("/rapla/get/{tags}", func(w http.ResponseWriter, r *http.Request) {
+	m.HandleFunc("/get/{tags}", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("GET", r.URL)
 		output, err := generateCalendar(mux.Vars(r))
 		if err != nil {
@@ -19,7 +19,7 @@ func startRouter() {
 		}
 		w.Write(output)
 	})
-	m.HandleFunc("/rapla/get/", func(w http.ResponseWriter, r *http.Request) {
+	m.HandleFunc("/get/", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("GET", r.URL)
 		m := make(map[string]string)
 		output, err := generateCalendar(m)
@@ -30,7 +30,12 @@ func startRouter() {
 		}
 		w.Write(output)
 	})
-	m.Handle("/rapla/", http.StripPrefix("/rapla/", http.FileServer(http.Dir("client"))))
+
+	m.PathPrefix("/img/").Handler(http.StripPrefix("/img/", http.FileServer(http.Dir("client/img"))))
+	m.PathPrefix("/css/").Handler(http.StripPrefix("/css/", http.FileServer(http.Dir("client/css"))))
+	m.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "client/index.html")
+	})
 
 	log.Fatal(http.ListenAndServe("0.0.0.0:10944", m))
 
