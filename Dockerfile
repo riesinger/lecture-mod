@@ -6,7 +6,7 @@ RUN mkdir /app
 COPY lecture-mod /app
 COPY client /app/client
 
-RUN apk update && apk add ca-certificates
+RUN apk update && apk add ca-certificates tzdata
 
 WORKDIR /app
 
