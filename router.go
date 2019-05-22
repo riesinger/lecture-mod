@@ -17,6 +17,7 @@ func startRouter() {
 			log.Fatal(err)
 			return
 		}
+		w.Header().Set("Content-Type", "text/calendar; charset=utf-8")
 		w.Write(output)
 	})
 	m.HandleFunc("/get/", func(w http.ResponseWriter, r *http.Request) {

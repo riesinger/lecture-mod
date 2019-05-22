@@ -103,7 +103,7 @@
 		let tags = fields.filter((field) => !field.querySelector("input").checked).map((field) =>
 			encodeURIComponent(field.querySelector("input").name.toLowerCase())).join("+");
 
-		output.value = `${base}${tags}`;
+		output.value = `${base}${tags}?noCache`;
 	}
 
 	fields.forEach((e) => {
