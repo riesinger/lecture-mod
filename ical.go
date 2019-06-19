@@ -25,7 +25,7 @@ func ParseCalendar(text string) (*Calendar, error) {
 func (c *Calendar) RemoveEventsByName(eventsToRemove []string) (*Calendar, error) {
 	newCalendar := ics.NewCalendar()
 	newCalendar.SetMethod(ics.MethodPublish)
-	newCalendar.SetProductId("Pascal Riesinger//lecture-mod")
+	newCalendar.SetProductId("-//Pascal Riesinger//lecture-mod")
 	for _, event := range c.cal.Events() {
 		summary := event.GetProperty(ics.ComponentPropertySummary).Value
 		startDate := event.GetProperty(ics.ComponentPropertyDtStart).Value
@@ -50,13 +50,13 @@ func (c *Calendar) RemoveEventsByName(eventsToRemove []string) (*Calendar, error
 		newEvent.SetSummary(summary)
 		startTime, err := parseICSDate(startDate)
 		if err != nil {
-			log.Println("Could not parse start date: %s", startDate)
+			log.Printf("Could not parse start date: %s", startDate)
 			return nil, err
 		}
 		newEvent.SetStartAt(startTime)
 		endTime, err := parseICSDate(endDate)
 		if err != nil {
-			log.Println("Could not parse end date: %s", endDate)
+			log.Printf("Could not parse end date: %s", endDate)
 			return nil, err
 		}
 		newEvent.SetEndAt(endTime)
