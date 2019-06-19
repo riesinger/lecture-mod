@@ -1,21 +1,22 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"log"
 	"net/http"
+	"net/url"
 	"strings"
 	"sync"
 	"time"
 )
 
 var (
-	currentCalendar *Calendar
+	currentCalendar string
 
 	mtx sync.RWMutex
 )
 
-// TODO: Make this dynamic
 const (
 	icalURL = "https://rapla.dhbw-karlsruhe.de/rapla?page=ical&user=freudenmann&file=TINF17B1"
 )
@@ -52,13 +53,8 @@ func refresh() {
 	defer resp.Body.Close()
 	buff := new(bytes.Buffer)
 	buff.ReadFrom(resp.Body)
-	calendar, err := ParseCalendar(buff.String())
-	if err != nil {
-		log.Printf("Error parsing the calendar: %v", err)
-		return
-	}
 	mtx.Lock()
-	currentCalendar = calendar
+	currentCalendar = buff.String()
 	mtx.Unlock()
 
 	log.Println("Calendar was refreshed")
@@ -93,20 +89,67 @@ func generateCalendar(params map[string]string) ([]byte, error) {
 	tagsString, ok := params["tags"]
 	if !ok {
 		log.Println("Got no tags, returning whole calendar")
-		mtx.RLock()
-		defer mtx.RUnlock()
-		return []byte(currentCalendar.Serialize()), nil
+		mtx.Lock()
+		defer mtx.Unlock()
+		return []byte(currentCalendar), nil
 	}
 
 	tags := strings.Split(tagsString, "+")
 
+	builder := strings.Builder{}
+	buf := strings.Builder{}
+
+	buffering := false
+
 	mtx.RLock()
-	cal, err := currentCalendar.RemoveEventsByName(tags)
-	mtx.RUnlock()
-	if err != nil {
-		log.Printf("Failed to remove events: %v", err)
-		return nil, err
+	defer mtx.RUnlock()
+	scanner := bufio.NewScanner(bytes.NewBufferString(currentCalendar))
+	scanner.Split(ScanCRLF)
+
+	numLines := 0
+
+	for scanner.Scan() {
+		numLines++
+		l := scanner.Text()
+		if buffering {
+			buf.WriteString(l)
+			buf.WriteString("\r\n")
+			// Check if the current line terminates a VEVENT
+			if strings.Contains(l, "END:VEVENT") {
+				// If the currently buffered VEVENT contains any of the tags, dump it
+				for _, v := range tags {
+					p, err := url.PathUnescape(v)
+					if err != nil {
+						return nil, err
+					}
+					if strings.Contains(strings.ToLower(buf.String()), p) {
+						buf.Reset()
+						break
+					}
+				}
+
+				if buf.String() != "" {
+					builder.WriteString(buf.String())
+				}
+
+				buf.Reset()
+				buffering = false
+			}
+		} else {
+			// We currently are either in the metadata or something went very wrong!
+			if strings.Contains(l, "BEGIN:VEVENT") {
+				// Start buffering each event
+				buffering = true
+				buf.WriteString(l)
+				buf.WriteString("\r\n")
+			} else {
+				// This should be metadata
+				builder.WriteString(l)
+				builder.WriteString("\r\n")
+			}
+		}
 	}
-	return []byte(cal.Serialize()), nil
+
+	return []byte(builder.String()), nil
 
 }
