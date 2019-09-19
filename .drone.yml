@@ -24,7 +24,6 @@ steps:
       from_secret: registry_password
   when:
     event: tag
-    image: golang:1.10.2-alpine
 
 - name: update-service
   image: appropriate/curl
