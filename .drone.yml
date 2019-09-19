@@ -1,5 +1,5 @@
 ---
-kine: pipeline
+kind: pipeline
 name: default
 type: docker
 
