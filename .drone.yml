@@ -7,6 +7,7 @@ steps:
 - name: build
   image: plugins/docker
   repo: reg.infra.riesiner.dev/lecture-mod
+  registry: reg.infra.riesinger.dev
   settings:
     target: builder
     purge: true
