@@ -1,25 +1,36 @@
-pipeline:
-  build:
+---
+kine: pipeline
+name: default
+type: docker
+
+steps:
+- name: build
+  image: plugins/docker
+  settings:
+    target: builder
+    purge: true
+    dry_run: true
+
+- name: publish
+  image: plugins/docker
+  settings:
+    repo: reg.infra.riesinger.dev/lecture-mod
+    registry: reg.infra.riesinger.dev
+    auto_tag: true
+    username:
+      from_secret: registry_username
+    password:
+      from_secret: registry_password
+  when:
+    event: tag
     image: golang:1.10.2-alpine
-    environment:
-      - CGO_ENABLED=0
-      - GOOS=linux
-      - GOPATH=/drone/
-    commands:
-      - apk add --update git
-      - go get -v 
-      - go vet -v
-      - go build -v -a -installsuffix cgo -o lecture-mod .
-  publish-docker:
-    image: docker
-    secrets: [ docker_username, docker_password ]
-    commands:
-      - docker login --username=$DOCKER_USERNAME --password=$DOCKER_PASSWORD registry.pascal-riesinger.de
-      - docker build -t registry.pascal-riesinger.de/lecture-mod:latest .
-      - docker push registry.pascal-riesinger.de/lecture-mod:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    when:
-      branch: master
-      event: push
-  
+
+- name: update-service
+  image: appropriate/curl
+  environment:
+    url:
+      from_secret: service_update_url
+  commands:
+  - curl -X POST $URL
+  when:
+    event: tag
