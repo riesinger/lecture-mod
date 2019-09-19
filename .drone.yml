@@ -6,6 +6,7 @@ type: docker
 steps:
 - name: build
   image: plugins/docker
+  repo: reg.infra.riesiner.dev/lecture-mod
   settings:
     target: builder
     purge: true
