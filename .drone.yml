@@ -28,7 +28,7 @@ steps:
 - name: update-service
   image: appropriate/curl
   environment:
-    url:
+    URL:
       from_secret: service_update_url
   commands:
   - curl -X POST $URL
