@@ -23,7 +23,7 @@ func startRouter() {
 			log.Fatal(err)
 			return
 		}
-		w.Header().Set("Content-Type", "text/calendar; charset=utf-8")
+		w.Header().Set("Content-Type", "text/calendar")
 		// Reference time is Mon Jan 2 15:04:05 MST 2006
 		// Expcted format is Wed, 22 May 2019 08:11:07 GMT
 		w.Header().Set("Last-Modified", time.Now().In(gmt).Add(-1*time.Second).Format("Mon, 2 Jan 2006 15:04:05 GMT"))
@@ -38,7 +38,7 @@ func startRouter() {
 			log.Fatal(err)
 			return
 		}
-		w.Header().Set("Content-Type", "text/calendar; charset=utf-8")
+		w.Header().Set("Content-Type", "text/calendar")
 		// Reference time is Mon Jan 2 15:04:05 MST 2006
 		// Expcted format is Wed, 22 May 2019 08:11:07 GMT
 		w.Header().Set("Last-Modified", time.Now().In(gmt).Add(-1*time.Second).Format("Mon, 2 Jan 2006 15:04:05 GMT"))
