@@ -6,12 +6,11 @@ type: docker
 steps:
 - name: build
   image: plugins/docker
-  repo: reg.infra.riesiner.dev/lecture-mod
-  registry: reg.infra.riesinger.dev
   settings:
     target: builder
     purge: true
     dry_run: true
+    repo: reg.infra.riesiner.dev/lecture-mod
 
 - name: publish
   image: plugins/docker
