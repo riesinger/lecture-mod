@@ -22,10 +22,19 @@ steps:
       from_secret: registry_username
     password:
       from_secret: registry_password
-  when:
-    event: tag
 
-- name: update-service
+- name: deploy-staging
+  image: appropriate/curl
+  environment:
+    URL:
+      from_secret: service_update_url_staging
+  commands:
+  - curl -X POST $URL
+  when:
+    branch:
+    - master
+
+- name: deploy-prod
   image: appropriate/curl
   environment:
     URL:
