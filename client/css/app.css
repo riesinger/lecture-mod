@@ -1,7 +1,7 @@
 body, html {
 	margin: 0;
 	padding: 0;
-	font-family: "Roboto", sans-serif;
+	font-family: sans-serif;
 	line-height: 1.5;
 	background: #f7f7f7;
 	color: rgba(0, 0, 0, 0.6);
@@ -19,11 +19,12 @@ html {
 
 body {
 	font-size: 1.2rem;
+	overflow-x: hidden;
 }
 
 header {
 	background: #fff;
-	height: 15rem;
+	height: 10rem;
 	width: 100%;
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 	display: flex;
@@ -31,53 +32,74 @@ header {
 	padding: 0 5%;
 	align-items: center;
 }
+
 header h1 {
 	margin: 0;
 	font-size: 2.75rem;
 	font-weight: 400;
 	color: rgba(0, 0, 0, 0.8);
-	font-family: "Poppins";
 }
+
 header .subtitle {
 	font-weight: 400;
-	font-family: "Poppins";
 	font-size: 1.25rem;
 }
+
 header img {
-	height: 15rem;
+	max-height: 100%;
 }
 
 h2 {
 	font-weight: 400;
-	font-family: "Poppins";
 	font-size: 2rem;
 	color: rgba(0, 0, 0, 0.8);
 }
 
 
 section {
-	padding: 5rem 5%;
+	padding: 3rem 5%;
 }
 
 section.white {
 	background: #fff;
 }
 
+.output-flex {
+	display: grid;
+	grid-template-columns: 1fr calc(4rem + 15ch);
+	grid-gap: 10px;
+	align-items: center;
+	width: 100%;
+	flex-wrap: wrap;
+}
+
 .output {
 	font-size: 2rem;
 	padding: 1rem 2rem;
-	width: 100%;
 	box-sizing: border-box;
 	outline: none;
 	border: none;
 	background: rgba(0, 0, 0, .07);
 	border-radius: 10px;
+	overflow: hidden;
+}
+
+button#copyButton {
+	font-size: 2rem;
+	padding: 1rem 2rem;
+	box-sizing: border-box;
+	outline: none;
+	border: none;
+	background: rgba(0, 0, 0, .07);
+	border-radius: 10px;
+	cursor: pointer;
+	word-wrap: none;
+	white-space: pre;
 }
 
 .control {
 	background-color: #fff;
 	display: block;
-	margin: 10px 0;
 	position: relative;
 }
 
@@ -169,7 +191,36 @@ ul {
 label.checkbox:first-child {
 	margin-top: 10px;
 }
+
 label.checkbox input {
 	margin-right: 10px;
 }
 
+.flex-form {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 10px 10px;
+}
+
+@media screen and (max-width: 1850px) {
+	.flex-form {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+}
+
+
+@media screen and (max-width: 1350px) {
+	.flex-form {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media screen and (max-width: 940px) {
+	.flex-form {
+		grid-template-columns: 1fr;
+	}
+
+	.output-flex {
+		grid-template-columns: 1fr;
+	}
+}
