@@ -8,7 +8,6 @@ steps:
   image: plugins/docker
   settings:
     target: builder
-    purge: true
     dry_run: true
     repo: reg.infra.riesiner.dev/lecture-mod
 
